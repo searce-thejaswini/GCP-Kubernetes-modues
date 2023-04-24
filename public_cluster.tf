@@ -1,4 +1,4 @@
-resource "google_container_cluster" "gke_standard_private" {
+resource "google_container_cluster" "gke_standard_public" {
   provider = google-beta
   count = var.cluster_type == "standard" && var.cluster_mode == "public" ? 1 : 0
   project = var.project_id
