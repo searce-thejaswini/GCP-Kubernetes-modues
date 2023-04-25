@@ -35,13 +35,13 @@ resource "google_container_cluster" "gke_standard_private" {
     disabled = var.http_load_balancing
    }
    network_policy_config {
-     disabled = var.network_policy_config
+     disabled = false
    }
    gcp_filestore_csi_driver_config {
      enabled = var.gcp_filestore_csi_driver_config
    }
    cloudrun_config {
-     disabled = var.cloudrun_config
+     disabled = true
     #  load_balancer_type = LOAD_BALANCER_TYPE_INTERNAL
    }
    istio_config {
@@ -104,14 +104,18 @@ resource "google_container_cluster" "gke_standard_private" {
 
 master_auth {
   client_certificate_config {
-    issue_client_certificate = var.issue_client_certificate
+    issue_client_certificate = false
       }
   }
   database_encryption {
     state = var.database_encryption
   }
-vertical_pod_autoscaling {
+ vertical_pod_autoscaling {
     enabled = var.vertical_pod_autoscaling
+  }
+    
+ release_channel {
+    channel = var.release_channel
   }
   
 
@@ -150,7 +154,7 @@ resource "google_container_node_pool" "gke1_app_node_pool" {
   }
   
   node_config {
-    preemptible  = var.node_config.preemptible
+    preemptible  = false
     machine_type = var.node_config.machine_type
     image_type   = var.node_config.image_type
     disk_type    = var.node_config.disk_type
