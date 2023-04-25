@@ -224,6 +224,11 @@ variable "vertical_pod_autoscaling" {
   default = false
   description = "Environment for the GKE cluster"
 }
+variable "release_channel" {
+  type    = string
+  default = "REGULAR"
+}
+#############################################################################################################################################
 variable "node_config" {
   type = object({
     preemptible  = bool
