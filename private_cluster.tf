@@ -1,10 +1,10 @@
 resource "google_container_cluster" "gke_standard_private" {
   provider = google-beta
-  count = var.cluster_type == "standard" && var.cluster_mode == "private" ? 1 : 0
+  count = var.cluster_mode == "private" ? 1 : 0
   project = var.project_id
-  name     = "${var.gke_app}-${var.environment}-gke-pvt-cluster-01"
-  location = var.region 
-  node_locations = var.node_locations 
+  name     = "${var.clustername}-${var.environment}-gke-pvt-cluster-01"
+  location = var.cluster_type == "regional" ? var.region : "${var.region}-a"
+  node_locations = setsubtract(data.google_compute_zones.available_zones.names, ["${var.region}-a","${var.region}-b","${var.region}-c","${var.region}-d","${var.region}-e"] 
   default_max_pods_per_node = var.default_max_pods_per_node
   remove_default_node_pool = var.remove_default_node_pool
   initial_node_count       = var.initial_node_count
