@@ -1,8 +1,8 @@
-cluster_type = "standard"
+environment = "production"                 
+cluster_type = "zonal"                      
 cluster_mode = "private"
 cluster_location = "regional"
-region = "asia-south1"
-node_locations = "asia-south1-c"
+region = "asia-south1
 gke_vpc_name = "test-network"
 gke_subnetwork = "test-subnetwork"
 gke_app = "wordpress"
