@@ -4,26 +4,24 @@ resource "google_container_cluster" "gke_standard_private" {
   project = var.project_id
   name     = "${var.clustername}-${var.environment}-gke-pvt-cluster-01"
   location = var.cluster_type == "regional" ? var.region : "${var.region}-a"
-  node_locations = setsubtract(data.google_compute_zones.available_zones.names, ["${var.region}-a","${var.region}-b","${var.region}-c","${var.region}-d","${var.region}-e"] 
+  node_locations = var.node_locations #setsubtract(data.google_compute_zones.available_zones.names, ["${var.region}-a","${var.region}-b","${var.region}-c","${var.region}-d","${var.region}-e"])
   default_max_pods_per_node = var.default_max_pods_per_node
   remove_default_node_pool = var.remove_default_node_pool
   initial_node_count       = var.initial_node_count
   enable_shielded_nodes     = var.enable_shielded_nodes
   datapath_provider         = var.datapath_provider  #CAN BE LEGACY_DATAPATH AS WELL
   networking_mode = var.networking_mode
+  #min_master_version        = "1.22.17-gke.8000"
+  # provider                  = google-beta
 
   
 
   network = data.google_compute_network.gke_vpc.id
-  subnetwork = data.google_compute_subnetwork.my-subnetwork.id
+  subnetwork = data.google_compute_subnetwork.my_subnetwork.id
 
   ip_allocation_policy {
     cluster_secondary_range_name = google_compute_subnetwork.gke-custom-snet.secondary_ip_range.0.range_name
     services_secondary_range_name = google_compute_subnetwork.gke-custom-snet.secondary_ip_range.1.range_name
-  }
-  
-  network_policy {
-    enabled = var.network_policy_enable
   }
 
   addons_config {
@@ -69,9 +67,11 @@ resource "google_container_cluster" "gke_standard_private" {
   }
     
   private_cluster_config {
-    enable_private_endpoint = var.cluster_type == "standard" && var.cluster_mode == "private" ? true : false
-    enable_private_nodes = var.cluster_type == "standard" && var.cluster_mode == "private" ? true : false
+    enable_private_endpoint = true
+    enable_private_nodes = true
+    master_ipv4_cidr_block = var.master_ipv4_cidr_block
   }
+
   binary_authorization {
     evaluation_mode = var.binary_authorization
   }
@@ -82,9 +82,9 @@ resource "google_container_cluster" "gke_standard_private" {
   logging_config {
    enable_components = var.logging_config
   }
-  monitoring_config {
-   enable_components = var.monitoring_config
-  }
+  # monitoring_config {
+  #  enable_components = var.monitoring_config
+  # }
   maintenance_policy {
     recurring_window {
       start_time = var.maintenance_policy.recurring_window.start_time
@@ -117,7 +117,17 @@ master_auth {
  release_channel {
     channel = var.release_channel
   }
-  
+# master_authorized_networks_config {
+#     cidr_blocks {
+#       cidr_block = "10.8.0.0/16"
+#     }
+#   }
+master_authorized_networks_config {
+       cidr_blocks {
+        cidr_block   = var.master_authorized_cidr_block
+         display_name = var.master_authorized_display_name
+       }
+     }
 
       
   }
@@ -130,9 +140,9 @@ master_auth {
 
 
 resource "google_container_node_pool" "gke1_app_node_pool" {
-  count = var.cluster_type == "standard" && var.cluster_mode == "private" ? 1 : 0
+  count = var.cluster_mode == "private" ? 1 : 0
   project = var.project_id
-  name       = "${var.gke_app}-${var.environment}-gke-cluster-node-pool-01"
+  name       = "${var.clustername}-${var.environment}-gke-cluster-node-pool-01"
   location   = var.region
   cluster    = google_container_cluster.gke_standard_private[0].name
   node_count = var.node_count
@@ -155,10 +165,10 @@ resource "google_container_node_pool" "gke1_app_node_pool" {
   
   node_config {
     preemptible  = false
-    machine_type = var.node_config.machine_type
-    image_type   = var.node_config.image_type
-    disk_type    = var.node_config.disk_type
-    disk_size_gb = var.node_config.disk_size_gb
+    machine_type = var.node_config_machine_type
+    image_type   = var.node_config_image_type
+    disk_type    = var.node_config_disk_type
+    disk_size_gb = var.node_config_disk_size_gb
   
 
     shielded_instance_config {
@@ -184,5 +194,6 @@ resource "google_container_node_pool" "gke1_app_node_pool" {
 
   }
 }
+
 
 
