@@ -11,7 +11,6 @@ resource "google_container_cluster" "gke_standard_private" {
   enable_shielded_nodes     = var.enable_shielded_nodes
   datapath_provider         = var.datapath_provider  #CAN BE LEGACY_DATAPATH AS WELL
   networking_mode = var.networking_mode
-  #min_master_version        = "1.22.17-gke.8000"
   # provider                  = google-beta
 
   
