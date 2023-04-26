@@ -1,8 +1,8 @@
 resource "google_container_cluster" "gke_standard_public" {
   provider = google-beta
-  count = var.cluster_type == "standard" && var.cluster_mode == "public" ? 1 : 0
+  count = var.cluster_mode == "public" ? 1 : 0
   project = var.project_id
-  name     = "${var.gke_app}-${var.environment}-gke-pvt-cluster-01"
+  name     = "${var.clustername}-${var.environment}-gke-pub-cluster-011"
   location = var.region 
   node_locations = var.node_locations 
   default_max_pods_per_node = var.default_max_pods_per_node
@@ -11,11 +11,12 @@ resource "google_container_cluster" "gke_standard_public" {
   enable_shielded_nodes     = var.enable_shielded_nodes
   datapath_provider         = var.datapath_provider  #CAN BE LEGACY_DATAPATH AS WELL
   networking_mode = var.networking_mode
+  
 
   
 
   network = data.google_compute_network.gke_vpc.id
-  subnetwork = data.google_compute_subnetwork.my-subnetwork.id
+  subnetwork = data.google_compute_subnetwork.my_subnetwork.id
 
   ip_allocation_policy {
     cluster_secondary_range_name = google_compute_subnetwork.gke-custom-snet.secondary_ip_range.0.range_name
@@ -69,8 +70,8 @@ resource "google_container_cluster" "gke_standard_public" {
   }
     
   private_cluster_config {
-    enable_private_endpoint = var.cluster_type == "standard" && var.cluster_mode == "public" ? true : false
-    enable_private_nodes = var.cluster_type == "standard" && var.cluster_mode == "public" ? true : false
+    enable_private_endpoint = false
+    enable_private_nodes = true
   }
   binary_authorization {
     evaluation_mode = var.binary_authorization
@@ -125,10 +126,10 @@ vertical_pod_autoscaling {
       
 
 
-resource "google_container_node_pool" "gke1_app_node_pool" {
-  count = var.cluster_type == "standard" && var.cluster_mode == "private" ? 1 : 0
+resource "google_container_node_pool" "gke_app_node_pool" {
+  count = var.cluster_mode == "public" ? 1 : 0
   project = var.project_id
-  name       = "${var.gke_app}-${var.environment}-gke-cluster-node-pool-01"
+  name       = "${var.clustername}-${var.environment}-gke-cluster-node-pool-01"
   location   = var.region
   cluster    = google_container_cluster.gke_standard_private[0].name
   node_count = var.node_count
@@ -150,11 +151,11 @@ resource "google_container_node_pool" "gke1_app_node_pool" {
   }
   
   node_config {
-    preemptible  = var.node_config.preemptible
-    machine_type = var.node_config.machine_type
-    image_type   = var.node_config.image_type
-    disk_type    = var.node_config.disk_type
-    disk_size_gb = var.node_config.disk_size_gb
+    preemptible  = false
+    machine_type = var.node_config_machine_type
+    image_type   = var.node_config_image_type
+    disk_type    = var.node_config_disk_type
+    disk_size_gb = var.node_config_disk_size_gb
   
 
     shielded_instance_config {
@@ -162,14 +163,14 @@ resource "google_container_node_pool" "gke1_app_node_pool" {
     enable_secure_boot          = var.enable_secure_boot
    }
 
-   guest_accelerator {
-    type = var.guest_accelerator_type
-    count = var.guest_accelerator_count 
-    gpu_sharing_config{
-      gpu_sharing_strategy = var.gpu_sharing_strategy 
-       max_shared_clients_per_gpu = var.max_shared_clients_per_gpu 
-     }
-   }
+  #  guest_accelerator {
+  #   type = var.guest_accelerator_type
+  #   count = var.guest_accelerator_count 
+  #   gpu_sharing_config{
+  #     gpu_sharing_strategy = var.gpu_sharing_strategy 
+  #      max_shared_clients_per_gpu = var.max_shared_clients_per_gpu 
+  #    }
+  #  }
    service_account = var.service_account
       oauth_scopes    = ["https://www.googleapis.com/auth/devstorage.read_only", 
                         "https://www.googleapis.com/auth/logging.write", 
