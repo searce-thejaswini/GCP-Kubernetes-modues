@@ -7,13 +7,12 @@ data "google_compute_network" "gke_vpc" {
     ]
 }
 
-data "google_compute_subnetwork" "my-subnetwork" {
+data "google_compute_subnetwork" "my_subnetwork" {
   project = var.project_id
   name   = var.gke_subnetwork
-  region = "var.region"
+  region = var.region
 
   depends_on = [
     google_compute_subnetwork.gke-custom-snet
   ]
 }
-
