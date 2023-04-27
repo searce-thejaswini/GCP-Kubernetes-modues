@@ -11,6 +11,7 @@ resource "google_container_cluster" "gke_standard_private" {
   enable_shielded_nodes     = var.enable_shielded_nodes
   datapath_provider         = var.datapath_provider  #CAN BE LEGACY_DATAPATH AS WELL
   networking_mode = var.networking_mode
+  min_master_version        = "1.22.17-gke.8000"
   # provider                  = google-beta
 
   
@@ -30,9 +31,6 @@ resource "google_container_cluster" "gke_standard_private" {
     }
    http_load_balancing {
     disabled = var.http_load_balancing
-   }
-   network_policy_config {
-     disabled = false
    }
    gcp_filestore_csi_driver_config {
      enabled = var.gcp_filestore_csi_driver_config
@@ -81,22 +79,22 @@ resource "google_container_cluster" "gke_standard_private" {
   logging_config {
    enable_components = var.logging_config
   }
-  # monitoring_config {
-  #  enable_components = var.monitoring_config
-  # }
+ monitoring_config {
+    enable_components = var.monitoring_config
+   }
   maintenance_policy {
     recurring_window {
-      start_time = var.maintenance_policy.recurring_window.start_time
-      end_time = var.maintenance_policy.recurring_window.end_time
-      recurrence = var.maintenance_policy.recurring_window.recurrence
+      start_time = var.maintenance_policy_recurring_window_start_time
+      end_time = var.maintenance_policy_recurring_window_end_time
+      recurrence = var.maintenance_policy_recurring_window_recurrence
     }
 
     maintenance_exclusion {
-      exclusion_name = var.maintenance_policy.maintenance_exclusion.exclusion_name
-      start_time = var.maintenance_policy.maintenance_exclusion.start_time
-      end_time = var.maintenance_policy.maintenance_exclusion.end_time
+      exclusion_name = var.maintenance_policy_maintenance_exclusion_exclusion_name
+      start_time = var.maintenance_policy_maintenance_exclusion_start_time
+      end_time = var.maintenance_policy_maintenance_exclusion_end_time
       exclusion_options {
-        scope = var.maintenance_policy.maintenance_exclusion.exclusion_options.scope
+        scope = var.maintenance_policy_maintenance_exclusion_exclusion_options_scope
       }
     }
   }
@@ -116,11 +114,6 @@ master_auth {
  release_channel {
     channel = var.release_channel
   }
-# master_authorized_networks_config {
-#     cidr_blocks {
-#       cidr_block = "10.8.0.0/16"
-#     }
-#   }
 master_authorized_networks_config {
        cidr_blocks {
         cidr_block   = var.master_authorized_cidr_block
@@ -139,11 +132,11 @@ master_authorized_networks_config {
 
 
 resource "google_container_node_pool" "gke1_app_node_pool" {
-  count = var.cluster_mode == "private" ? 1 : 0
+  #count = var.cluster_mode == "private" ? 1 : 0
   project = var.project_id
-  name       = "${var.clustername}-${var.environment}-gke-cluster-node-pool-01"
-  location   = var.region
-  cluster    = google_container_cluster.gke_standard_private[0].name
+  name       = "${var.clustername}-${var.environment}-01"
+  location   = var.region #var.cluster_type == "regional" ? var.region : "${var.region}-a"
+  cluster    = google_container_cluster.gke_standard_private.name #google_container_cluster.gke_standard_private[0].name
   node_count = var.node_count
 
 
