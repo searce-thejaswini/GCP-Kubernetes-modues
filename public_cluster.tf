@@ -3,7 +3,7 @@ resource "google_container_cluster" "gke_standard_public" {
   count = var.cluster_mode == "public" ? 1 : 0
   project = var.project_id
   name     = "${var.clustername}-${var.environment}-gke-pub-cluster-011"
-  location = var.region 
+  location = var.cluster_type == "regional" ? var.region : "${var.region}-a"
   node_locations = var.node_locations 
   default_max_pods_per_node = var.default_max_pods_per_node
   remove_default_node_pool = var.remove_default_node_pool
@@ -130,7 +130,7 @@ resource "google_container_node_pool" "gke_app_node_pool" {
   count = var.cluster_mode == "public" ? 1 : 0
   project = var.project_id
   name       = "${var.clustername}-${var.environment}-gke-cluster-node-pool-01"
-  location   = var.region
+  location = var.cluster_type == "regional" ? var.region : "${var.region}-a"
   cluster    = google_container_cluster.gke_standard_private[0].name
   node_count = var.node_count
 
