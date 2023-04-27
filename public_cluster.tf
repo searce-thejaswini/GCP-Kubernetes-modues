@@ -163,14 +163,14 @@ resource "google_container_node_pool" "gke_app_node_pool" {
     enable_secure_boot          = var.enable_secure_boot
    }
 
-  #  guest_accelerator {
-  #   type = var.guest_accelerator_type
-  #   count = var.guest_accelerator_count 
-  #   gpu_sharing_config{
-  #     gpu_sharing_strategy = var.gpu_sharing_strategy 
-  #      max_shared_clients_per_gpu = var.max_shared_clients_per_gpu 
-  #    }
-  #  }
+    guest_accelerator {
+     type = var.guest_accelerator_type
+     count = var.guest_accelerator_count 
+     gpu_sharing_config{
+      gpu_sharing_strategy = var.gpu_sharing_strategy 
+        max_shared_clients_per_gpu = var.max_shared_clients_per_gpu 
+      }
+    }
    service_account = var.service_account
       oauth_scopes    = ["https://www.googleapis.com/auth/devstorage.read_only", 
                         "https://www.googleapis.com/auth/logging.write", 
