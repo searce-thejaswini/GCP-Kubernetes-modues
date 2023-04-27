@@ -114,6 +114,11 @@ master_auth {
  release_channel {
     channel = var.release_channel
   }
+# master_authorized_networks_config {
+#     cidr_blocks {
+#       cidr_block = "10.8.0.0/16"
+#     }
+#   }
 master_authorized_networks_config {
        cidr_blocks {
         cidr_block   = var.master_authorized_cidr_block
@@ -126,17 +131,17 @@ master_authorized_networks_config {
   
   
 
-#############################################################################################################
+######################################################Node Pool################################################################################################
 
       
 
 
 resource "google_container_node_pool" "gke1_app_node_pool" {
-  #count = var.cluster_mode == "private" ? 1 : 0
+  count = var.cluster_mode == "private" ? 1 : 0
   project = var.project_id
   name       = "${var.clustername}-${var.environment}-01"
   location   = var.region #var.cluster_type == "regional" ? var.region : "${var.region}-a"
-  cluster    = google_container_cluster.gke_standard_private.name #google_container_cluster.gke_standard_private[0].name
+  cluster    = google_container_cluster.gke_standard_private[0].name
   node_count = var.node_count
 
 
