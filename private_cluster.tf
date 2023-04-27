@@ -114,11 +114,6 @@ master_auth {
  release_channel {
     channel = var.release_channel
   }
-# master_authorized_networks_config {
-#     cidr_blocks {
-#       cidr_block = "10.8.0.0/16"
-#     }
-#   }
 master_authorized_networks_config {
        cidr_blocks {
         cidr_block   = var.master_authorized_cidr_block
