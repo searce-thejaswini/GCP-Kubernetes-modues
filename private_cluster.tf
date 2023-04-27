@@ -140,7 +140,7 @@ resource "google_container_node_pool" "gke1_app_node_pool" {
   count = var.cluster_mode == "private" ? 1 : 0
   project = var.project_id
   name       = "${var.clustername}-${var.environment}-01"
-  location   = var.region #var.cluster_type == "regional" ? var.region : "${var.region}-a"
+  location   = var.cluster_type == "regional" ? var.region : "${var.region}-a"
   cluster    = google_container_cluster.gke_standard_private[0].name
   node_count = var.node_count
 
