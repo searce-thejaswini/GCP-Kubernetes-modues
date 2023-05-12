@@ -1,15 +1,24 @@
+locals{
+    anthos_service_apis = ["mesh.googleapis.com", "gkehub.googleapis.com"]
+}
 resource "google_project_service" "anthos_service_mesh" {
-  count   = var.enable_asm ? 1 : 0
+  count   = length(local.anthos_service_apis)
   project = var.project_id
-  service = "mesh.googleapis.com"
+  service = local.anthos_service_apis[count.index]
 }
 
-resource "google_project_service" "anthos_gke_hub" {
-  count   = var.enable_asm ? 1 : 0
-  project = var.project_id
-  service = "gkehub.googleapis.com"
-  disable_dependent_services = true
-}
+# resource "google_project_service" "anthos_service_mesh" {
+#   count   = var.enable_asm ? 1 : 0
+#   project = var.project_id
+#   service = "mesh.googleapis.com"
+# }
+
+# resource "google_project_service" "anthos_gke_hub" {
+#   count   = var.enable_asm ? 1 : 0
+#   project = var.project_id
+#   service = "gkehub.googleapis.com"
+#   disable_dependent_services = true
+# }
 
 resource "google_gke_hub_membership" "membership" {
   count         = var.enable_asm ? 1 : 0
