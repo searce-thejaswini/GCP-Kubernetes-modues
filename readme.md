@@ -32,7 +32,7 @@
 | <a name="input_auto_repair"></a> [auto\_repair](#input\_auto\_repair) | If enabled the nodes will monitored and auto repaired automatically | `bool` | `true` | no |
 | <a name="input_auto_upgrade"></a> [auto\_upgrade](#input\_auto\_upgrade) | If enabled the nodes in the node-pools will be auto upgraded to latest version | `bool` | `true` | no |
 | <a name="input_binary_authorization"></a> [binary\_authorization](#input\_binary\_authorization) | Mode of operation for Binary Authorization policy evaluation | `string` | `"PROJECT_SINGLETON_POLICY_ENFORCE"` | no |
-| <a name="input_channel"></a> [channel](#input\_channel) | The channel to use for this ASM installation. | `string` | `""` | no |
+| <a name="input_channel"></a> [channel](#input\_channel) | The release channel of this cluster. | `string` | `""` | no |
 | <a name="input_cloudrun_config"></a> [cloudrun\_config](#input\_cloudrun\_config) | Disable cloudrun config addon | `bool` | `false` | no |
 | <a name="input_cluster_autoscaling_enabled"></a> [cluster\_autoscaling\_enabled](#input\_cluster\_autoscaling\_enabled) | cluster autoscaling enable | `bool` | `true` | no |
 | <a name="input_cluster_autoscaling_profile"></a> [cluster\_autoscaling\_profile](#input\_cluster\_autoscaling\_profile) | Cluster autoscaling profile | `string` | `"BALANCED"` | no |
