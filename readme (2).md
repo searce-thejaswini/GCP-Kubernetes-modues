@@ -2,23 +2,21 @@
 
   ## Below are the details of different files in this folder and it's usage.
 
-* ### [datasources.tf](https://github.com/searce-samir/google_foundation_tf_modules/blob/master/3-Network-core/datasources.tf)
+* ### [datasources.tf](https://github.com/searce-thejaswini/Kubernetes-modules/blob/main/datasources.tf)
    * This file is used for defining different data sources.
-* ### [network.tf](https://github.com/searce-samir/google_foundation_tf_modules/blob/master/3-Network-core/network.tf)
-   * This file creates a VPC network and subnets with private service access in Google Cloud Platform, and sets up network peering between multiple networks. It also configures the default network tier and enables OS login for projects.   
-* ### [firewall_rules.tf](https://github.com/searce-samir/google_foundation_tf_modules/blob/master/3-Network-core/firewall_rules.tf)
-   * This file contains the configurations for defining a set of mandatory firewall rules for Google Cloud Platform (GCP) that restrict egress traffic, allow private egress traffic, and permit certain ingress traffic.  
-* ### [shared_vpc.tf](https://github.com/searce-samir/google_foundation_tf_modules/blob/master/3-Network-core/shared_vpc.tf)
-   * This file is used to deploy a shared VPC network with subnets shared across multiple GCP projects. It consists of three main parts: creating a shared VPC host project, attaching service projects to the shared VPC host project, and sharing subnets across multiple projects.    
-* ### [cloud_dns.tf](https://github.com/searce-samir/google_foundation_tf_modules/blob/master/3-Network-core/cloud_dns.tf)
-  * This is a Terraform file for configuring DNS policies and peering zones, with specific settings for a ORG network environment. The code includes various configuration parameters for DNS inbound policy, forwarding policy, and DNS peering zone.
-* ### [nat.tf](https://github.com/searce-samir/google_foundation_tf_modules/blob/master/3-Network-core/nat.tf)
-   * This file creates cloud routers with NAT configuration in Google Cloud Platform, and assigns external IPs to them.
-* ### [variable.tf](https://github.com/searce-samir/google_foundation_tf_modules/blob/master/3-Network-core/variable.tf)
+* ### [asm.tf](https://github.com/searce-thejaswini/Kubernetes-modules/blob/main/asm.tf)
+   * This file helps in registering the cluster to Anthos Service Mesh   
+* ### [network.tf](https://github.com/searce-thejaswini/Kubernetes-modules/blob/main/network.tf)
+   * This file creates a VPC network and subnets in Google Cloud Platform. It also configures the default network tier and enables OS login for projects.   
+* ### [private_cluster.tf](https://github.com/searce-thejaswini/Kubernetes-modules/blob/main/private_cluster.tf)
+   * This file creates private cluster with all the configurations needed for the project. 
+* ### [public_cluster.tf](https://github.com/searce-thejaswini/Kubernetes-modules/blob/main/public_cluster.tf)
+   * This file creates public cluster with all the configurations needed for the project.     
+* ### [variable.tf](https://github.com/searce-thejaswini/Kubernetes-modules/blob/main/variables.tf)
    * This file contains the variables defined in the above files.
-* ### [terraform.tfvars](https://github.com/searce-samir/google_foundation_tf_modules/blob/master/3-Network-core/terraform.tfvars)
+* ### [terraform.tfvars](https://github.com/searce-thejaswini/Kubernetes-modules/blob/main/terraform.tfvars)
    * This file contains the values of the variables that will be used in the above files.
-* ### [provider.tf](https://github.com/searce-samir/google_foundation_tf_modules/blob/master/3-Network-core/provider.tf)
+* ### [provider.tf](https://github.com/searce-thejaswini/Kubernetes-modules/blob/main/provider.tf)
    * Providers allow Terraform to interact with cloud providers, SaaS providers, and other APIs.
      * google
      * google-beta 
