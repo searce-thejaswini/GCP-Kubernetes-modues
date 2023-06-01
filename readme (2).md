@@ -25,87 +25,83 @@
 
 
 
-## ![#85877e](https://placehold.co/5x5/85877e/85877e.png) Inputs for Common varibales
-
-
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_company_name"></a> [company\_name](#input\_company\_name) | The company code which will be used as prefix with the resource names, example "src or sear" for Searce | `string` | `""` | no |
-
-
-## ![#85877e](https://placehold.co/5x5/85877e/85877e.png) Inputs For Shared VPC
+## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_shared_vpc_host_project"></a> [shared\_vpc\_host\_project](#input\_shared\_vpc\_host\_project) | The project which need to be marked as host project for shared vpc | `string` | n/a | yes |
-| <a name="input_service_project_list"></a> [service\_project\_list](#input\_service\_project\_list) | The list of project whcih are suppossed to be attached to host project as service project | `list(string)` | n/a | yes |
-| <a name="input_prefix_length"></a> [prefix\_length](#input\_prefix\_length) | Length of the prefix | `string` | n/a | yes |
-
-## ![#85877e](https://placehold.co/5x5/85877e/85877e.png)  Inputs For Firewall Rules
-
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_firewall_enable_logging"></a> [firewall\_enable\_logging](#input\_firewall\_enable\_logging) | Boolean value to enable or disable firewall logs | `bool` | n/a | yes |
-| <a name="input_allow_egress_specific"></a> [allow\_egress\_specific](#input\_allow\_egress\_specific) | The IP ranges which will be denied as per firewall default rules | `list(string)` | n/a | yes |
-| <a name="input_allow_lb_health_check_ranges"></a> [allow\_lb\_health\_check\_ranges](#input\_allow\_lb\_health\_check\_ranges) | The IP ranges which will be allowed as per firewall default rules | `list(string)` | n/a | yes |
-| <a name="input_db_ranges"></a> [db\_ranges](#input\_db\_ranges) | The mysql IP ranges which will be denied as per firewall default rules | `list(string)` | n/a | yes |
-
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-## ![#85877e](https://placehold.co/5x5/85877e/85877e.png)  VPC and Subnet Config
-
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_network_tier"></a> [network\_tier](#input\_network\_tier) | Network tier to be used by VM - can be  STANDARD or PREMIUM | `string` | n/a | yes |
-| <a name="input_network_config"></a> [network\_config](#input\_network\_config) | Configuration related to VPC, saredVPC host project, prive service access - Plese check [.tfvars](https://github.com/searce-samir/google_foundation_tf_modules/blob/master/3-Network-core/terraform.tfvars) file for the details | `map(map(string))` | n/a | yes |
-| <a name="input_subnets_config"></a> [subnets\_config](#input\_subnets\_config) | Configuration related to Subnet range, subnet region, secondary ip ranges for pod and service - Plese check [.tfvars](https://github.com/searce-samir/google_foundation_tf_modules/blob/master/3-Network-core/terraform.tfvars) file for the details | `map(map(string))` | n/a | yes |
-
-  >  ### 1. ***map values for network_config variable***
-  >> | Name | Description | Type | Required |
-  >> |------|-------------|------|:--------:|
-  >> | <a name="input_project_id "></a> [project\_id](#input\_project\_id) | The Project ID where you want to create VPC's. | `string`| yes |
-  >> | <a name="input_network_name "></a> [network\_name](#input\_network\_name) | The VPC name which you want to give. | `string`| yes |
-  >> | <a name="input_shared_vpc_host "></a> [shared\_vpc\_host](#input\_shared\_vpc\_host) | If set true its mark as Shared VPC host Project | `bool` | yes |
-  >> | <a name="input_psa_cidr "></a> [psa\_cidr](#input\_psa\_cidr) | CIDR range for Private Service Access | `string`| yes |
-
-
- >  ### 2. ***map values for subnets_config variable***
- >> | Name | Description | Type | Required |
- >> |------|-------------|------|:--------:|
- >> | <a name="input_project_id "></a> [project\_id](#input\_project\_id) | The Project ID where your VPC's palced. | `string`| yes |
- >> | <a name="input_network_name "></a> [network\_name](#input\_network\_name) | The VPC name where you want to create subnets. | `string`| yes |
- >> | <a name="input_subnet_name "></a> [subnet\_name](#input\_subnet\_name) | The name of the subnet. | `string`| yes |
- >> | <a name="input_subnet_ip "></a> [subnet\_ip](#input\_subnet\_ip) | CIDR Range for the subnet | `string`| yes |
- >> | <a name="input_subnet_region "></a> [subnet\_region](#input\_subnet\_region) | The region for your specified subnet | `string`| yes |
- >> | <a name="input_secondary_range_pod_name "></a> [secondary\_range\_pod\_name](#input\_secondary\_range\_pod\_name) | Pod names that come under secondary ranges | `string`| yes |
- >> | <a name="input_secondary_ip_range_pod  "></a> [secondary\_ip\_range\_pod ](#input\_secondary\_ip\_range\_pod) | The secondary ip ranges for pods | `string`| yes |
- >> | <a name="input_secondary_range_service_name  "></a> [secondary\_range\_service\_name ](#input\_secondary\_range\_service\_name) | Service names that come under secondary ranges  | `string`| yes |
- >> | <a name="input_secondary_ip_range_service  "></a> [secondary\_ip\_range\_service ](#input\_secondary\_ip\_range\_service) | The secondary ip ranges for services   | `string`| yes |
- >> | <a name="input_subnet_sharing_member  "></a> [subnet\_sharing\_member ](#input\_subnet\_sharing\_member) | Identities that will be granted the privilege in role (roles/compute.networkUser).  | `string`| yes |
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-
-## ![#85877e](https://placehold.co/5x5/85877e/85877e.png) NAT and Cloud Routers
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_external_ips_count"></a> [external\_ips\_count](#input\_external\_ips\_count) | As the name suggest its for number of external static ips | `number` | n/a | yes |
-| <a name="input_bgp_asn"></a> [bgp\_asn](#input\_bgp\_asn) | The ASN number of BGP session | `number` | n/a | yes |
-| <a name="input_cloud_routers_config"></a> [cloud\_routers\_config](#input\_cloud\_routers\_config) | Configuration related to NAT, Cloud Router, External IP for NAT | `map(map(string))` | n/a | yes |
-
-> ### 3. ***map values for cloud_routers_config variable***
->> | Name | Description | Type | Required |
->> |------|-------------|------|:--------:|
->> | <a name="input_ext_ip_name "></a> [ext\_ip\_name ](#input\_ext\_ip\_name ) |  Name for reserved external ip address.  | `string`| yes |
->> | <a name="input_cloud_nat_name "></a> [cloud\_nat\_name ](#input\_cloud\_nat\_name) |  NAT gateway name   | `string`| yes |
->> | <a name="input_subnet_name "></a> [subnet\_name ](#input\_subnet\_name ) |   Cloud router subnet name  | `string`| yes |
->> | <a name="input_router_name "></a> [router\_name ](#input\_router\_name ) |  Cloud router name   | `string`| yes |
->> | <a name="input_project_id "></a> [project\_id ](#input\_project\_id ) |  Project_id where you want to create Cloud router   | `string`| yes |
->> | <a name="input_network_name "></a> [network\_name ](#input\_network\_name ) |  Hub VPC name to configure Cloud router with it.  | `string`| yes |
->> | <a name="input_region "></a> [region ](#input\_region ) |  Region where you want to create Cloud router   | `string`| yes |
-
+| <a name="input_auto_repair"></a> [auto\_repair](#input\_auto\_repair) | By Enabling this nodes in this node pool will be monitored | `bool` | `true` | no |
+| <a name="input_auto_upgrade"></a> [auto\_upgrade](#input\_auto\_upgrade) | Enabling this keep the nodes in your node pool up to date with the latest release version of Kubernetes. | `bool` | `true` | no |
+| <a name="input_binary_authorization"></a> [binary\_authorization](#input\_binary\_authorization) | Mode of operation for Binary Authorization policy evaluation | `string` | `"PROJECT_SINGLETON_POLICY_ENFORCE"` | no |
+| <a name="input_channel"></a> [channel](#input\_channel) | The channel to use for this ASM installation. | `string` | `""` | no |
+| <a name="input_cloudrun_config"></a> [cloudrun\_config](#input\_cloudrun\_config) | Disable cloudrun config addon | `bool` | `false` | no |
+| <a name="input_cluster_autoscaling_enabled"></a> [cluster\_autoscaling\_enabled](#input\_cluster\_autoscaling\_enabled) | cluster autoscaling enable | `bool` | `true` | no |
+| <a name="input_cluster_autoscaling_profile"></a> [cluster\_autoscaling\_profile](#input\_cluster\_autoscaling\_profile) | Cluster autoscaling profile | `string` | `"BALANCED"` | no |
+| <a name="input_cluster_mode"></a> [cluster\_mode](#input\_cluster\_mode) | The cluster mode to execute private cluster or public cluster | `string` | `"public"` | no |
+| <a name="input_cluster_type"></a> [cluster\_type](#input\_cluster\_type) | Cluster type zonal/regional | `string` | `"zonal"` | no |
+| <a name="input_clustername"></a> [clustername](#input\_clustername) | The name of the cluster | `string` | `"wordpress"` | no |
+| <a name="input_create_system_namespace"></a> [create\_system\_namespace](#input\_create\_system\_namespace) | Determines whether the module creates the istio-system namespace. | `bool` | `true` | no |
+| <a name="input_database_encryption"></a> [database\_encryption](#input\_database\_encryption) | Application-layer Secrets Encryption settings. The object format is {state = string, key\_name = string}. Valid values of state are: "ENCRYPTED"; "DECRYPTED". key\_name is the name of a CloudKMS key. | `string` | `"DECRYPTED"` | no |
+| <a name="input_datapath_provider"></a> [datapath\_provider](#input\_datapath\_provider) | region for the GKE cluster | `string` | `"The desired datapath provider for this cluster. By default, `DATAPATH\_PROVIDER\_UNSPECIFIED` enables the IPTables-based kube-proxy implementation. `ADVANCED\_DATAPATH` enables Dataplane-V2 feature."` | no |
+| <a name="input_default_max_pods_per_node"></a> [default\_max\_pods\_per\_node](#input\_default\_max\_pods\_per\_node) | The maximum number of pods to schedule per node | `number` | `100` | no |
+| <a name="input_dns_cache_config"></a> [dns\_cache\_config](#input\_dns\_cache\_config) | Enable dns cache config addon | `bool` | `true` | no |
+| <a name="input_enable_asm"></a> [enable\_asm](#input\_enable\_asm) | Enable Anthos Service Mesh | `bool` | `"true"` | no |
+| <a name="input_enable_cni"></a> [enable\_cni](#input\_enable\_cni) | Determines whether to enable CNI for this ASM installation. Required to use Managed Data Plane (MDP). | `bool` | `false` | no |
+| <a name="input_enable_fleet_registration"></a> [enable\_fleet\_registration](#input\_enable\_fleet\_registration) | Determines whether the module registers the cluster to the fleet. | `bool` | `true` | no |
+| <a name="input_enable_integrity_monitoring"></a> [enable\_integrity\_monitoring](#input\_enable\_integrity\_monitoring) | Defines if the instance has integrity monitoring enabled | `bool` | `true` | no |
+| <a name="input_enable_mesh_feature"></a> [enable\_mesh\_feature](#input\_enable\_mesh\_feature) | Determines whether the module enables the mesh feature on the fleet. | `bool` | `true` | no |
+| <a name="input_enable_secure_boot"></a> [enable\_secure\_boot](#input\_enable\_secure\_boot) | Defines if the instance has Secure Boot enabled | `bool` | `true` | no |
+| <a name="input_enable_shielded_nodes"></a> [enable\_shielded\_nodes](#input\_enable\_shielded\_nodes) | Enable Shielded Nodes features on all nodes in this cluster | `bool` | `true` | no |
+| <a name="input_enable_vpc_sc"></a> [enable\_vpc\_sc](#input\_enable\_vpc\_sc) | Determines whether to enable VPC-SC for this ASM installation. For more information read https://cloud.google.com/service-mesh/docs/managed/vpc-sc | `bool` | `true` | no |
+| <a name="input_environment"></a> [environment](#input\_environment) | Environment for the GKE cluster | `string` | `"production"` | no |
+| <a name="input_fleet_id"></a> [fleet\_id](#input\_fleet\_id) | The fleet to use for this ASM installation. | `string` | `""` | no |
+| <a name="input_gcp_filestore_csi_driver_config"></a> [gcp\_filestore\_csi\_driver\_config](#input\_gcp\_filestore\_csi\_driver\_config) | Disable gcp filestore csi  driver config addon | `bool` | `false` | no |
+| <a name="input_gke_subnetwork"></a> [gke\_subnetwork](#input\_gke\_subnetwork) | Subnet where GKE will be deployed | `string` | `"default"` | no |
+| <a name="input_gke_vpc_name"></a> [gke\_vpc\_name](#input\_gke\_vpc\_name) | VPC where GKE will be deployed | `string` | `"default"` | no |
+| <a name="input_gpu_sharing_strategy"></a> [gpu\_sharing\_strategy](#input\_gpu\_sharing\_strategy) | The type of GPU sharing strategy to enable on the GPU node | `string` | `"TIME_SHARING"` | no |
+| <a name="input_guest_accelerator_count"></a> [guest\_accelerator\_count](#input\_guest\_accelerator\_count) | The number of the guest accelerator cards exposed to this instance | `number` | `2` | no |
+| <a name="input_guest_accelerator_type"></a> [guest\_accelerator\_type](#input\_guest\_accelerator\_type) | The accelerator type resource to expose to this instance | `string` | `"nvidia-tesla-k80"` | no |
+| <a name="input_horizontal_pod_autoscaling"></a> [horizontal\_pod\_autoscaling](#input\_horizontal\_pod\_autoscaling) | Enable horizontal pod autoscaling addon | `bool` | `false` | no |
+| <a name="input_http_load_balancing"></a> [http\_load\_balancing](#input\_http\_load\_balancing) | Enable http load balancing addon | `bool` | `false` | no |
+| <a name="input_initial_node_count"></a> [initial\_node\_count](#input\_initial\_node\_count) | The number of nodes to create in this cluster's default node pool. | `number` | `1` | no |
+| <a name="input_internal_ip"></a> [internal\_ip](#input\_internal\_ip) | Use internal ip for the cluster endpoint when running kubectl commands. | `bool` | `false` | no |
+| <a name="input_issue_client_certificate"></a> [issue\_client\_certificate](#input\_issue\_client\_certificate) | Issues a client certificate to authenticate to the cluster endpoint. To maximize the security of your cluster, leave this option disabled. Client certificates don't automatically rotate and aren't easily revocable. WARNING: changing this after cluster creation is destructive! | `bool` | `false` | no |
+| <a name="input_istio_auth"></a> [istio\_auth](#input\_istio\_auth) | The authentication type between services in Istio | `string` | `"AUTH_MUTUAL_TLS"` | no |
+| <a name="input_istio_config"></a> [istio\_config](#input\_istio\_config) | Environment for the GKE cluster | `bool` | `true` | no |
+| <a name="input_logging_config"></a> [logging\_config](#input\_logging\_config) | List of services to monitor: SYSTEM\_COMPONENTS, WORKLOADS (provider version >= 3.89.0). Empty list is default GKE configuration. | `list(string)` | <pre>[<br>  "SYSTEM_COMPONENTS",<br>  "WORKLOADS"<br>]</pre> | no |
+| <a name="input_maintenance_policy_maintenance_exclusion_end_time"></a> [maintenance\_policy\_maintenance\_exclusion\_end\_time](#input\_maintenance\_policy\_maintenance\_exclusion\_end\_time) | No | `string` | `"NO_UPGRADES"` | no |
+| <a name="input_maintenance_policy_maintenance_exclusion_exclusion_name"></a> [maintenance\_policy\_maintenance\_exclusion\_exclusion\_name](#input\_maintenance\_policy\_maintenance\_exclusion\_exclusion\_name) | No | `string` | `"gke-maintainance-exclusion"` | no |
+| <a name="input_maintenance_policy_maintenance_exclusion_exclusion_options_scope"></a> [maintenance\_policy\_maintenance\_exclusion\_exclusion\_options\_scope](#input\_maintenance\_policy\_maintenance\_exclusion\_exclusion\_options\_scope) | No | `string` | `"FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR"` | no |
+| <a name="input_maintenance_policy_maintenance_exclusion_start_time"></a> [maintenance\_policy\_maintenance\_exclusion\_start\_time](#input\_maintenance\_policy\_maintenance\_exclusion\_start\_time) | No | `string` | `"2019-01-01T00:00:00Z"` | no |
+| <a name="input_maintenance_policy_recurring_window_end_time"></a> [maintenance\_policy\_recurring\_window\_end\_time](#input\_maintenance\_policy\_recurring\_window\_end\_time) | No | `string` | `"2019-01-01T17:00:00Z"` | no |
+| <a name="input_maintenance_policy_recurring_window_recurrence"></a> [maintenance\_policy\_recurring\_window\_recurrence](#input\_maintenance\_policy\_recurring\_window\_recurrence) | No | `string` | `"FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR"` | no |
+| <a name="input_maintenance_policy_recurring_window_start_time"></a> [maintenance\_policy\_recurring\_window\_start\_time](#input\_maintenance\_policy\_recurring\_window\_start\_time) | No | `string` | `"2019-01-01T09:00:00Z"` | no |
+| <a name="input_master_authorized_cidr_block"></a> [master\_authorized\_cidr\_block](#input\_master\_authorized\_cidr\_block) | n/a | `string` | `"172.24.0.0/13"` | no |
+| <a name="input_master_authorized_display_name"></a> [master\_authorized\_display\_name](#input\_master\_authorized\_display\_name) | n/a | `string` | `"my_ip"` | no |
+| <a name="input_master_ipv4_cidr_block"></a> [master\_ipv4\_cidr\_block](#input\_master\_ipv4\_cidr\_block) | The IP range in CIDR notation to use for the hosted master network | `string` | `"10.8.1.0/28"` | no |
+| <a name="input_max_node_count"></a> [max\_node\_count](#input\_max\_node\_count) | Minimum Node Count | `number` | `3` | no |
+| <a name="input_max_shared_clients_per_gpu"></a> [max\_shared\_clients\_per\_gpu](#input\_max\_shared\_clients\_per\_gpu) | The maximum number of containers that can share a GPU. | `number` | `5` | no |
+| <a name="input_max_surge"></a> [max\_surge](#input\_max\_surge) | The maximum number of nodes that can be created beyond the current size of the node pool during the upgrade process | `number` | `0` | no |
+| <a name="input_max_unavailable"></a> [max\_unavailable](#input\_max\_unavailable) | The maximum number of nodes that can be simultaneously unavailable during the upgrade process | `number` | `0` | no |
+| <a name="input_min_node_count"></a> [min\_node\_count](#input\_min\_node\_count) | Minimum Node Count | `number` | `1` | no |
+| <a name="input_module_depends_on"></a> [module\_depends\_on](#input\_module\_depends\_on) | List of modules or resources this module depends on.  If multiple, all items must be the same type. | `list(any)` | `[]` | no |
+| <a name="input_monitoring_config"></a> [monitoring\_config](#input\_monitoring\_config) | List of services to monitor: SYSTEM\_COMPONENTS, WORKLOADS (provider version >= 3.89.0). Empty list is default GKE configuration. | `list(string)` | <pre>[<br>  "SYSTEM_COMPONENTS",<br>  "WORKLOADS"<br>]</pre> | no |
+| <a name="input_multicluster_mode"></a> [multicluster\_mode](#input\_multicluster\_mode) | [Preview] Determines whether remote secrets should be autogenerated across fleet cluster. | `string` | `"manual"` | no |
+| <a name="input_network_policy_config"></a> [network\_policy\_config](#input\_network\_policy\_config) | Enable network policy config addon | `bool` | `false` | no |
+| <a name="input_networking_mode"></a> [networking\_mode](#input\_networking\_mode) | The networking\_mode determines whether alias IPs or routes will be used for pod IPs in the cluster | `string` | `"VPC_NATIVE"` | no |
+| <a name="input_node_config_disk_size_gb"></a> [node\_config\_disk\_size\_gb](#input\_node\_config\_disk\_size\_gb) | Size of the disk attached to each node | `number` | `100` | no |
+| <a name="input_node_config_disk_type"></a> [node\_config\_disk\_type](#input\_node\_config\_disk\_type) | Type of the disk attached to each node | `string` | `"pd-standard"` | no |
+| <a name="input_node_config_image_type"></a> [node\_config\_image\_type](#input\_node\_config\_image\_type) | The image type used once a new node pool is being created. | `string` | `"COS_CONTAINERD"` | no |
+| <a name="input_node_config_machine_type"></a> [node\_config\_machine\_type](#input\_node\_config\_machine\_type) | Google Compute Engine machine type | `string` | `"e2-medium"` | no |
+| <a name="input_node_count"></a> [node\_count](#input\_node\_count) | n/a | `number` | `1` | no |
+| <a name="input_node_locations"></a> [node\_locations](#input\_node\_locations) | The region where the GKE will be deployed | `list(string)` | <pre>[<br>  "asia-southeast1-b",<br>  "asia-southeast1-c"<br>]</pre> | no |
+| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | The project where the GKE will be deployed | `string` | `"terraformering"` | no |
+| <a name="input_region"></a> [region](#input\_region) | The region where the GKE will be deployed | `string` | `"asia-southeast1"` | no |
+| <a name="input_release_channel"></a> [release\_channel](#input\_release\_channel) | The release channel of this cluster. Accepted values are `UNSPECIFIED`, `RAPID`, `REGULAR` and `STABLE`. Defaults to `UNSPECIFIED`. | `string` | `"UNSPECIFIED"` | no |
+| <a name="input_remove_default_node_pool"></a> [remove\_default\_node\_pool](#input\_remove\_default\_node\_pool) | Donot remove default node pool while setting up the cluster | `bool` | `true` | no |
+| <a name="input_resourcelimits"></a> [resourcelimits](#input\_resourcelimits) | n/a | <pre>list(object({<br>    resource_type = string<br>    minimum = number<br>    maximum = number<br>  }))</pre> | n/a | yes |
+| <a name="input_service_account"></a> [service\_account](#input\_service\_account) | Defines if service account specified to run nodes should be created | `string` | `"default"` | no |
+| <a name="input_service_external_ips_config"></a> [service\_external\_ips\_config](#input\_service\_external\_ips\_config) | Whether external ips specified by a service will be allowed in this cluster | `bool` | `true` | no |
+| <a name="input_vertical_pod_autoscaling"></a> [vertical\_pod\_autoscaling](#input\_vertical\_pod\_autoscaling) | Vertical Pod Autoscaling automatically adjusts the resources of pods controlled by it | `bool` | `false` | no |
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
