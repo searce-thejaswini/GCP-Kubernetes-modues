@@ -109,8 +109,4 @@
 
 
 ## ![#85877e](https://placehold.co/5x5/85877e/85877e.png) Excepted Outcomes :-
-* This module should expect to create the infrastructure for a VPC, subnets, and network peering in Google Cloud Platform, and also firewall rules to manage network traffic. The rules are designed to allow or deny egress/ingress traffic for specific protocols, ports, IP ranges. It also configure network tiers and project metadata.
-* It creates a shared VPC host project, attaches service projects to it, and shares subnets with the grourp mentioned "subnet_sharing_member" inside [terraform.tfvars](https://github.com/searce-samir/google_foundation_tf_modules/blob/master/3-Network-core/terraform.tfvars) file.
-* This module creating Shared VPC which allows multiple projects to use a single VPC network, while still maintaining project-level isolation and control.with each project having its own subnets, routes, firewall rules, and other network resources within the VPC. 
-* It creates cloud routers for NAT with specified configurations, and creates NAT gateways in two different regions with one external static public IP address each.
-* This module creates a DNS infrastructure that includes an inbound policy, a forwarding policy, and a peering zone. The DNS inbound policy is set up in a hub VPC, the forwarding policy points to an on-premises DNS server, and the peering zone connects to two spoke VPCs.
+* This module should is expected to create the infrastructure for the * GKE cliuster* with anthos service mesh registered which inclused netwoirk components like VCP, SUBNETS, etc.
