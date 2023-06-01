@@ -109,4 +109,4 @@
 
 
 ## ![#85877e](https://placehold.co/5x5/85877e/85877e.png) Excepted Outcomes :-
-* This module should is expected to create the infrastructure for the * GKE cliuster* with anthos service mesh registered which inclused netwoirk components like VCP, SUBNETS, etc.
+* This module should is expected to create the infrastructure for the  **GKE cliuster** with anthos service mesh registered which inclused netwoirk components like VCP, SUBNETS, etc.
