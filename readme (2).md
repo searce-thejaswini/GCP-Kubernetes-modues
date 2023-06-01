@@ -1,4 +1,4 @@
- # 3-Network-core
+ # 3-GCP-Kubernetes-Modules
 
   ## Below are the details of different files in this folder and it's usage.
 
